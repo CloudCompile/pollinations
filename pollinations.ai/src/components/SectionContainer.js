@@ -56,12 +56,12 @@ export const SectionMainContent = styled.div`
   align-items: center;
   padding: 2em;
   width: 100%;
-  background-color: ${Colors.offblack};
+  background-color: ${Colors.offwhite};
   border-radius: 0em;
 `;
 export const SectionTitleStyle = styled.div`
   font-size: ${(props) => props.fontSize || "8em"};
-  color: ${(props) => props.color || Colors.lime};
+  color: ${(props) => props.color || Colors.magenta};
   font-family: ${Fonts.title};
   letter-spacing: 0.1em;
   line-height: 1em;
@@ -74,7 +74,7 @@ export const SectionTitleStyle = styled.div`
 export const SectionHeadlineStyle = styled.div`
   font-size: ${(props) => props.fontSize || "1.5em"};
   max-width: ${(props) => props.maxWidth || "750px"};
-  color: ${(props) => props.color || Colors.offwhite};
+  color: ${(props) => props.color || Colors.darkBlue};
   font-family: ${Fonts.headline};
   font-weight: 500;
   text-align: ${(props) => props.textAlign || "center"};

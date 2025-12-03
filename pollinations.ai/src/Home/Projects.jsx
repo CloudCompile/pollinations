@@ -72,16 +72,16 @@ const Projects = () => {
 
     const getButtonBackgroundColor = (categoryKey) => {
         if (selectedCategory !== categoryKey) {
-            return Colors.offblack;
+            return Colors.mint;
         }
-        return Colors.lime;
+        return Colors.magenta;
     };
 
     const getButtonTextColor = (categoryKey) => {
         if (selectedCategory === categoryKey) {
-            return Colors.offblack;
+            return Colors.mint;
         }
-        return Colors.lime;
+        return Colors.darkBlue;
     };
 
     return (
@@ -102,10 +102,10 @@ const Projects = () => {
                 <Box sx={{ width: "auto", height: "100px" }}>
                     <GeneralButton
                         handleClick={handleSubmitButtonClick}
-                        textColor={Colors.offwhite}
-                        borderColor={Colors.offwhite}
+                        textColor={Colors.mint}
+                        borderColor={Colors.magenta}
                         fontSize="2em"
-                        backgroundColor={Colors.offblack}
+                        backgroundColor={Colors.magenta}
                         style={{
                             fontSize: "1.5rem",
                             fontFamily: Fonts.title,

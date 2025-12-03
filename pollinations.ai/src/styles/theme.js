@@ -3,24 +3,24 @@ import { Colors, Fonts } from "../config/global";
 
 /**
  * Custom theme for Material UI components
- * This theme coordinates with your existing color scheme and fonts
+ * Light mode theme matching enter.pollinations.ai design
  */
 export const theme = createTheme({
     palette: {
-        mode: "dark",
+        mode: "light",
         primary: {
-            main: Colors.lime,
+            main: Colors.magenta,
         },
         secondary: {
-            main: Colors.offwhite,
+            main: Colors.gold,
         },
         background: {
-            default: Colors.offblack,
-            paper: Colors.offblack2,
+            default: Colors.mint,
+            paper: Colors.offwhite,
         },
         text: {
-            primary: Colors.offwhite,
-            secondary: Colors.gray1,
+            primary: Colors.darkBlue,
+            secondary: Colors.grayTeal,
         },
         error: {
             main: Colors.special,
@@ -30,21 +30,27 @@ export const theme = createTheme({
         fontFamily: Fonts.parameter,
         h1: {
             fontFamily: Fonts.title,
+            color: Colors.darkBlue,
         },
         h2: {
             fontFamily: Fonts.title,
+            color: Colors.darkBlue,
         },
         h3: {
             fontFamily: Fonts.headline,
+            color: Colors.darkBlue,
         },
         h4: {
             fontFamily: Fonts.headline,
+            color: Colors.darkBlue,
         },
         h5: {
             fontFamily: Fonts.headline,
+            color: Colors.darkBlue,
         },
         h6: {
             fontFamily: Fonts.headline,
+            color: Colors.darkBlue,
         },
         button: {
             fontFamily: Fonts.parameter,
@@ -58,18 +64,18 @@ export const theme = createTheme({
                     borderRadius: 8,
                 },
                 contained: {
-                    backgroundColor: Colors.lime,
-                    color: Colors.offblack,
+                    backgroundColor: Colors.magenta,
+                    color: "#ffffff",
                     "&:hover": {
-                        backgroundColor: `${Colors.lime}cc`,
+                        backgroundColor: `${Colors.magenta}dd`,
                     },
                 },
                 outlined: {
-                    borderColor: Colors.lime,
-                    color: Colors.lime,
+                    borderColor: Colors.darkBlue,
+                    color: Colors.darkBlue,
                     "&:hover": {
-                        borderColor: Colors.lime,
-                        backgroundColor: `${Colors.lime}22`,
+                        borderColor: Colors.magenta,
+                        backgroundColor: `${Colors.magenta}11`,
                     },
                 },
             },
@@ -79,13 +85,13 @@ export const theme = createTheme({
                 root: {
                     "& .MuiOutlinedInput-root": {
                         "& fieldset": {
-                            borderColor: `${Colors.lime}66`,
+                            borderColor: `${Colors.darkBlue}44`,
                         },
                         "&:hover fieldset": {
-                            borderColor: `${Colors.lime}aa`,
+                            borderColor: Colors.magenta,
                         },
                         "&.Mui-focused fieldset": {
-                            borderColor: Colors.lime,
+                            borderColor: Colors.magenta,
                         },
                     },
                 },
@@ -94,13 +100,13 @@ export const theme = createTheme({
         MuiSlider: {
             styleOverrides: {
                 thumb: {
-                    color: Colors.lime,
+                    color: Colors.magenta,
                 },
                 track: {
-                    color: Colors.lime,
+                    color: Colors.magenta,
                 },
                 rail: {
-                    color: `${Colors.lime}44`,
+                    color: `${Colors.grayTeal}66`,
                 },
             },
         },

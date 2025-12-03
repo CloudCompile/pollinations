@@ -39,10 +39,10 @@ export const Integration = () => {
     return (
         <SectionContainer backgroundConfig={SectionBG.integration}>
             <SectionSubContainer>
-                <SectionTitle title={INTEGRATE_TITLE} />
+                <SectionTitle title={INTEGRATE_TITLE} color={Colors.gold} />
             </SectionSubContainer>
             <SectionSubContainer>
-                <SectionHeadlineStyle>
+                <SectionHeadlineStyle color={Colors.mint}>
                     <LLMTextManipulator
                         text={INTEGRATE_SUBTITLE}
                         transforms={[rephrase, emojify, noLink]}
@@ -53,9 +53,9 @@ export const Integration = () => {
                 <GeneralButton
                     handleClick={handleGithubButtonClick}
                     isLoading={false}
-                    backgroundColor={Colors.offblack2}
-                    textColor={Colors.offwhite}
-                    borderColor={Colors.offwhite}
+                    backgroundColor={Colors.mint}
+                    textColor={Colors.darkBlue}
+                    borderColor={Colors.mint}
                     style={{
                         fontSize: "1.5rem",
                         fontFamily: Fonts.title,
@@ -65,7 +65,7 @@ export const Integration = () => {
                     <ReactSVG
                         src={ICONS.github}
                         beforeInjection={(svg) => {
-                            svg.setAttribute("fill", Colors.offwhite);
+                            svg.setAttribute("fill", Colors.darkBlue);
                         }}
                         style={{
                             width: "32px",

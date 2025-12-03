@@ -1,15 +1,25 @@
-// lime: '#FFE801',
+// New color palette based on enter.pollinations.ai design
+// Color palette extracted from websiteimprovements/color-thief-palette
 
 export const SHOW_PROMPT_TOOLTIP = false;
 
 export const Colors = {
-    lime: "#ecf874",
-    offwhite: "#c7d4d6",
-    offblack: "#110518",
-    offblack2: "#181A2C",
-    gray1: "#B3B3B3",
-    gray2: "#8A8A8A",
-    special: "rgb(191,64,64)",
+    // Primary colors from enter.pollinations.ai palette
+    mint: "#D7FAE5",         // Light mint green - primary background
+    darkBlue: "#3B4656",     // Dark blue-gray - primary text/headers
+    magenta: "#C54B91",      // Magenta/pink - accent color
+    grayTeal: "#819798",     // Gray-teal - secondary elements
+    gold: "#E7BC44",         // Gold/yellow - highlights
+    cream: "#F0D886",        // Light gold/cream - secondary highlight
+    
+    // Legacy color mappings for backward compatibility
+    lime: "#E7BC44",         // Map to gold for accent elements
+    offwhite: "#D7FAE5",     // Map to mint for light backgrounds
+    offblack: "#3B4656",     // Map to darkBlue for dark text
+    offblack2: "#2D3642",    // Slightly darker variant of darkBlue
+    gray1: "#819798",        // Map to grayTeal
+    gray2: "#6B7A7B",        // Darker variant of grayTeal
+    special: "#C54B91",      // Map to magenta for special elements
 };
 
 export const Fonts = {
@@ -19,49 +29,50 @@ export const Fonts = {
 };
 
 // Step 1: Create a new mapping object for section backgrounds
+// Updated to match enter.pollinations.ai light theme design
 export const SectionBG = {
     header: {
-        color: Colors.offwhite,
+        color: Colors.mint,
         gradient: false,
     },
     hero: {
-        color: Colors.offwhite,
+        color: Colors.mint,
         gradient: false,
     },
     news: {
-        color: Colors.offwhite,
+        color: Colors.mint,
         gradient: false,
     },
     feedImage: {
-        color: Colors.offblack,
-        gradient: true,
+        color: Colors.darkBlue,
+        gradient: false,
     },
     feedText: {
-        color: Colors.offblack,
-        gradient: true,
+        color: Colors.darkBlue,
+        gradient: false,
     },
     project: {
-        color: Colors.offblack2,
+        color: Colors.mint,
         gradient: false,
     },
     integration: {
-        color: Colors.offblack,
+        color: Colors.darkBlue,
         gradient: false,
     },
     community: {
-        color: Colors.offblack2,
-        gradient: true,
+        color: Colors.darkBlue,
+        gradient: false,
     },
     team: {
-        color: Colors.offwhite,
-        gradient: true,
+        color: Colors.mint,
+        gradient: false,
     },
     supporter: {
-        color: Colors.offblack,
-        gradient: true,
+        color: Colors.mint,
+        gradient: false,
     },
     footer: {
-        color: Colors.offwhite,
+        color: Colors.mint,
         gradient: false,
     },
 };

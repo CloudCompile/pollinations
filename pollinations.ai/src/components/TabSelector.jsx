@@ -61,8 +61,8 @@ const TabSelector = ({
             getButtonBackground ||
             ((itemKey) =>
                 effectiveSelectedKey === itemKey
-                    ? Colors.lime
-                    : Colors.offblack2),
+                    ? Colors.gold
+                    : Colors.darkBlue),
         [getButtonBackground, effectiveSelectedKey],
     );
 
@@ -71,8 +71,8 @@ const TabSelector = ({
             getButtonTextColor ||
             ((itemKey) =>
                 effectiveSelectedKey === itemKey
-                    ? Colors.offblack
-                    : Colors.lime),
+                    ? Colors.darkBlue
+                    : Colors.mint),
         [getButtonTextColor, effectiveSelectedKey],
     );
 
