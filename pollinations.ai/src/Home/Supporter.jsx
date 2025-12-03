@@ -123,7 +123,7 @@ const Supporter = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 style={{
-                                    color: Colors.lime,
+                                    color: Colors.magenta,
                                     fontFamily: Fonts.parameter,
                                     fontSize: "1.1em",
                                 }}
@@ -137,7 +137,7 @@ const Supporter = () => {
                             {isMdUp && (
                                 <span
                                     style={{
-                                        color: Colors.offwhite,
+                                        color: Colors.darkBlue,
                                         fontSize: "1em",
                                         fontFamily: Fonts.parameter,
                                     }}

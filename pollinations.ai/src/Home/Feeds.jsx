@@ -66,14 +66,14 @@ export const Feeds = () => {
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     // Set these props directly which GeneralButton is designed to handle
-                    borderColor={isHovered ? Colors.lime : Colors.lime}
-                    textColor={isHovered ? Colors.lime : Colors.lime}
+                    borderColor={isHovered ? Colors.gold : Colors.gold}
+                    textColor={isHovered ? Colors.gold : Colors.gold}
                     borderRadius="0em"
                     fontSize={isMdUp ? "8em" : "4em"}
                     style={{
                         // Add box shadow on hover using the isHovered state
                         boxShadow: isHovered
-                            ? `0 0 10px ${Colors.offblack}`
+                            ? `0 0 10px ${Colors.mint}`
                             : "none",
                         transition: "all 0.3s ease",
                         padding: "0em 0.2em",
@@ -81,7 +81,7 @@ export const Feeds = () => {
                 >
                     {activeMode === "text" ? "text" : "image"}
                 </GeneralButton>
-                <SectionTitleStyle>Feed</SectionTitleStyle>
+                <SectionTitleStyle color={Colors.gold}>Feed</SectionTitleStyle>
             </SectionSubContainer>
 
             {/* Conditional Feed Rendering */}

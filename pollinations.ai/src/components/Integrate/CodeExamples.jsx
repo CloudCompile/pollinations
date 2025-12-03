@@ -87,7 +87,7 @@ export function CodeExamples({ image = {} }) {
                                     onClick={() => handleCopy(text, index)}
                                     sx={{
                                         textAlign: "left",
-                                        color: Colors.offwhite,
+                                        color: Colors.mint,
                                         fontFamily: Fonts.title,
                                         fontWeight: 600,
                                         textTransform: "uppercase",
@@ -97,8 +97,8 @@ export function CodeExamples({ image = {} }) {
                                             backgroundColor: "transparent",
                                             color:
                                                 copiedIndex === index
-                                                    ? Colors.offwhite
-                                                    : Colors.lime,
+                                                    ? Colors.mint
+                                                    : Colors.gold,
                                         },
                                     }}
                                 >
@@ -117,7 +117,7 @@ export function CodeExamples({ image = {} }) {
                                     theme={paraisoDark}
                                     customStyle={{
                                         backgroundColor: "transparent",
-                                        color: Colors.offwhite,
+                                        color: Colors.mint,
                                         width: "100%",
                                         height: "auto",
                                         border: `0px`,

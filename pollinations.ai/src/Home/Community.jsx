@@ -106,10 +106,10 @@ const Community = () => {
     return (
         <SectionContainer backgroundConfig={SectionBG.community}>
             <SectionSubContainer>
-                <SectionTitle title={COMMUNITY_TITLE} color={Colors.lime} />
+                <SectionTitle title={COMMUNITY_TITLE} color={Colors.gold} />
             </SectionSubContainer>
             <SectionSubContainer>
-                <SectionHeadlineStyle color={Colors.offwhite}>
+                <SectionHeadlineStyle color={Colors.mint}>
                     <LLMTextManipulator
                         text={COMMUNITY_SUBTITLE}
                         transforms={[rephrase, responsive, emojify, noLink]}
@@ -140,10 +140,10 @@ const Community = () => {
                                             platform.buttonClickHandler
                                         }
                                         isLoading={false}
-                                        backgroundColor={Colors.offblack}
-                                        textColor={Colors.offwhite}
+                                        backgroundColor={Colors.mint}
+                                        textColor={Colors.darkBlue}
                                         fontSize={isXs ? "1.5em" : "2.5em"}
-                                        borderColor={Colors.offwhite}
+                                        borderColor={Colors.mint}
                                         style={{ fontFamily: Fonts.parameter }}
                                     >
                                         <ReactSVG
@@ -153,7 +153,7 @@ const Community = () => {
                                             beforeInjection={(svg) => {
                                                 svg.setAttribute(
                                                     "fill",
-                                                    Colors.offwhite,
+                                                    Colors.darkBlue,
                                                 );
                                             }}
                                             style={{
@@ -176,7 +176,7 @@ const Community = () => {
                                     }}
                                 >
                                     <SectionHeadlineStyle
-                                        color={Colors.offwhite}
+                                        color={Colors.mint}
                                         fontSize="1.2em"
                                     >
                                         <LLMTextManipulator
@@ -210,7 +210,7 @@ const Community = () => {
                     >
                         <AsciiArtGenerator
                             width="100px"
-                            style={{ fontWeight: "bold", color: Colors.lime }}
+                            style={{ fontWeight: "bold", color: Colors.gold }}
                         />
                     </Box>
                 </SectionSubContainer>

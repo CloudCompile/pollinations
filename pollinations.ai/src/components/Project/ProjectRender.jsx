@@ -90,7 +90,7 @@ const ProjectsRender = ({ projectList, classes }) => {
                                                               style={{
                                                                   marginTop:
                                                                       "0.5em",
-                                                                  color: Colors.offwhite,
+                                                                  color: Colors.darkBlue,
                                                                   fontSize:
                                                                       "1em",
                                                                   fontFamily:
@@ -106,7 +106,7 @@ const ProjectsRender = ({ projectList, classes }) => {
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
                                                                         style={{
-                                                                            color: Colors.lime,
+                                                                            color: Colors.magenta,
                                                                         }}
                                                                         onClick={() =>
                                                                             trackEvent(
@@ -149,7 +149,7 @@ const ProjectsRender = ({ projectList, classes }) => {
                                                                                       target="_blank"
                                                                                       rel="noopener noreferrer"
                                                                                       style={{
-                                                                                          color: Colors.lime,
+                                                                                          color: Colors.magenta,
                                                                                       }}
                                                                                       onClick={() =>
                                                                                           trackEvent(
@@ -180,7 +180,7 @@ const ProjectsRender = ({ projectList, classes }) => {
                                                                             target="_blank"
                                                                             rel="noopener noreferrer"
                                                                             style={{
-                                                                                color: Colors.lime,
+                                                                                color: Colors.magenta,
                                                                             }}
                                                                         >
                                                                             {project.author
@@ -211,7 +211,7 @@ const ProjectsRender = ({ projectList, classes }) => {
                                               >
                                                   <span
                                                       style={{
-                                                          color: Colors.offwhite,
+                                                          color: Colors.darkBlue,
                                                           fontSize: "1em",
                                                           fontFamily:
                                                               Fonts.parameter,
@@ -280,7 +280,7 @@ const ProjectsRender = ({ projectList, classes }) => {
                                                               style={{
                                                                   marginTop:
                                                                       "0.5em",
-                                                                  color: Colors.offwhite,
+                                                                  color: Colors.darkBlue,
                                                                   fontSize:
                                                                       "1em",
                                                                   fontFamily:
@@ -296,7 +296,7 @@ const ProjectsRender = ({ projectList, classes }) => {
                                                                         target="_blank"
                                                                         rel="noopener noreferrer"
                                                                         style={{
-                                                                            color: Colors.lime,
+                                                                            color: Colors.magenta,
                                                                         }}
                                                                         onClick={() =>
                                                                             trackEvent(
@@ -339,7 +339,7 @@ const ProjectsRender = ({ projectList, classes }) => {
                                                                                       target="_blank"
                                                                                       rel="noopener noreferrer"
                                                                                       style={{
-                                                                                          color: Colors.lime,
+                                                                                          color: Colors.magenta,
                                                                                       }}
                                                                                       onClick={() =>
                                                                                           trackEvent(
@@ -370,7 +370,7 @@ const ProjectsRender = ({ projectList, classes }) => {
                                                                             target="_blank"
                                                                             rel="noopener noreferrer"
                                                                             style={{
-                                                                                color: Colors.lime,
+                                                                                color: Colors.magenta,
                                                                             }}
                                                                         >
                                                                             {project.author
@@ -393,7 +393,7 @@ const ProjectsRender = ({ projectList, classes }) => {
                                               >
                                                   <span
                                                       style={{
-                                                          color: Colors.offwhite,
+                                                          color: Colors.darkBlue,
                                                           fontSize: "1em",
                                                           fontFamily:
                                                               Fonts.parameter,
@@ -441,7 +441,7 @@ const renderProjectLink = (project) => {
             rel="noopener noreferrer"
             onClick={handleProjectLinkClick}
             sx={{
-                color: Colors.lime,
+                color: Colors.magenta,
                 fontFamily: Fonts.parameter,
                 fontStyle: "normal",
                 fontWeight: "bold",
@@ -487,7 +487,7 @@ const renderRepoLink = (repoUrl, stars) => {
             rel="noopener noreferrer"
             onClick={handleRepoLinkClick}
             style={{
-                color: Colors.lime,
+                color: Colors.magenta,
                 fontFamily: Fonts.parameter,
                 fontWeight: "bold",
                 fontSize: "1em",
@@ -498,7 +498,7 @@ const renderRepoLink = (repoUrl, stars) => {
             <ReactSVG
                 src={ICONS.github}
                 beforeInjection={(svg) => {
-                    svg.setAttribute("fill", Colors.lime);
+                    svg.setAttribute("fill", Colors.magenta);
                     svg.setAttribute(
                         "style",
                         "margin-right: 8px; background: transparent; vertical-align: middle;",
