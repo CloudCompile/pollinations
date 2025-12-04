@@ -110,7 +110,7 @@ POLLEN SYSTEM
 ================================================================================
 
 - $1 ≈ 1 Pollen (prepaid credits)
-- Daily grants by tier: spore (5), seed (10), flower (15), nectar (20)
+- Daily grants by tier: spore (1), seed (3), flower (10), nectar (20)
 - Flux: 8,300 images/pollen, GPTImage: 125 images/pollen
 - Mistral: 5,900 chats/pollen, Claude Sonnet: 150 chats/pollen
 
@@ -118,11 +118,10 @@ POLLEN SYSTEM
 TIER SYSTEM
 ================================================================================
 
-spore 🍄 (5/day) - Default new accounts
-seed 🌱 (10/day) - GitHub engagement
-flower 🌸 (15/day) - Contributed code/project
+spore 🍄 (1/day) - Default new accounts
+seed 🌱 (3/day) - GitHub engagement
+flower 🌸 (10/day) - Contributed code/project
 nectar 🍯 (20/day) - Strategic partners
-router 🔌 (100/day) - Infrastructure partners
 
 ================================================================================
 QUICK DEBUG COMMANDS
