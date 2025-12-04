@@ -1,5 +1,6 @@
 # POLLY BOT KNOWLEDGE BASE
 # Concise reference for Pollinations.AI services, endpoints, and troubleshooting
+# Source: https://github.com/pollinations/pollinations
 
 ================================================================================
 SERVICE ENDPOINTS
@@ -8,46 +9,73 @@ SERVICE ENDPOINTS
 ## Legacy APIs (Maintenance Mode)
 - Image: https://image.pollinations.ai/prompt/{prompt}
 - Text: https://text.pollinations.ai/{prompt}
-- Models: /models endpoint on each service
+- Text POST: https://text.pollinations.ai/ (OpenAI-compatible)
+- Models: https://image.pollinations.ai/models, https://text.pollinations.ai/models
 
-## New API (enter.pollinations.ai) - Preferred
-- Image: GET /api/generate/image/{prompt}?model=flux
-- Text (OpenAI): POST /api/generate/v1/chat/completions
-- Text (Simple): GET /api/generate/text/{prompt}
-- Models: /api/generate/image/models, /api/generate/v1/models
+## New API (enter.pollinations.ai) - PREFERRED
+Base URL: https://enter.pollinations.ai/api
+- Image: GET /generate/image/{prompt}?model=flux
+- Text (OpenAI): POST /generate/v1/chat/completions
+- Text (Simple): GET /generate/text/{prompt}?model=openai
+- Image Models: GET /generate/image/models
+- Text Models: GET /generate/v1/models
 
 ## Authentication
 - Header: Authorization: Bearer YOUR_API_KEY
 - Query: ?key=YOUR_API_KEY
-- Publishable Key (pk_): Client-side, IP rate limited
-- Secret Key (sk_): Server-side, no rate limits
+- Get keys at: https://enter.pollinations.ai (or https://auth.pollinations.ai)
+
+## API Key Types
+- Publishable Key (pk_): Client-side safe, rate limited (3 req/burst, ~4 req/min)
+- Secret Key (sk_): Server-side only, no rate limits, can spend pollen
 
 ================================================================================
 REQUEST/RESPONSE FORMATS
 ================================================================================
 
 ## Image Parameters
-model, width, height, seed, enhance, nologo, private, nofeed, safe, image (for img2img), transparent
+| Parameter   | Description                              | Default |
+|-------------|------------------------------------------|---------|
+| model       | flux, gptimage, turbo, kontext, seedream | flux    |
+| width       | Image width in pixels                    | 1024    |
+| height      | Image height in pixels                   | 1024    |
+| seed        | For reproducible results                 | random  |
+| enhance     | AI improves prompt                       | false   |
+| nologo      | Remove watermark (requires account)      | false   |
+| private     | Hide from public feeds                   | false   |
+| nofeed      | Exclude from feed                        | false   |
+| safe        | Enable NSFW filtering                    | false   |
+| image       | Input image URL (for img2img)            | -       |
+| transparent | Transparent background                   | false   |
 
 ## Image Models
-flux (default), gptimage, turbo, kontext, seedream (min 960x960)
+- flux (default) - Ultra-efficient, 1024x1024
+- gptimage - Vision-capable, higher quality
+- turbo - Fast generation
+- kontext - Image-to-image editing
+- seedream - Premium quality (min 960x960 required)
 
 ## Text Request (OpenAI-compatible)
-POST /api/generate/v1/chat/completions
+POST /generate/v1/chat/completions
 {
   "model": "openai",
   "messages": [{"role": "user", "content": "Hello"}],
   "temperature": 0.7,
+  "max_tokens": 500,
   "stream": false
 }
 
 ## Text Models
-openai (default), openai-fast, mistral, qwen-coder, openai-audio
+- openai (default) - GPT-4o equivalent
+- openai-fast - GPT-4o-mini equivalent
+- mistral - Efficient, low cost
+- qwen-coder - Code-focused
+- openai-audio - Text-to-speech/speech-to-text
 
-## Audio Request
+## Audio Request (REQUIRED FORMAT)
 {
   "model": "openai-audio",
-  "messages": [...],
+  "messages": [{"role": "user", "content": "Say hello"}],
   "modalities": ["text", "audio"],
   "audio": {"voice": "alloy", "format": "wav"}
 }
@@ -58,36 +86,39 @@ COMMON ERRORS & FIXES
 ================================================================================
 
 ## 401 Unauthorized
-- All models require authentication
-- Check token format (pk_ or sk_ prefix)
-- Verify token in database
+- All models require authentication via enter.pollinations.ai
+- Verify token format starts with pk_ or sk_
+- Check token exists in database
 
 ## 403 Forbidden
 - Insufficient pollen balance for paid models
 - Check balance at https://enter.pollinations.ai
-- Text models may have tier requirements
+- Some text models may have tier requirements
+
+## 400 Bad Request (openai-audio)
+- MUST include: "modalities": ["text", "audio"]
+- Without modalities parameter, you get 400 error
 
 ## 500 Internal Server Error
 - Too many requests too quickly - add 2s+ delays between requests
 - Backend overload - retry with single requests first
-- Verify model name is correct
+- Verify model name is correct (use /models endpoint)
 
 ## Empty Response
 - Model rate-limited or cache returned empty
 - Check x-cache header for HIT/MISS status
 
-## openai-audio 400 Error
-- Missing modalities parameter
-- Must include: "modalities": ["text", "audio"]
+## seedream Model Errors
+- Requires minimum 960x960 pixels (921,600 total pixels)
 
 ================================================================================
 REPOSITORY STRUCTURE
 ================================================================================
 
 pollinations/
-├── image.pollinations.ai/   # Image generation backend (Cloudflare Worker + EC2)
-├── text.pollinations.ai/    # Text generation backend (EC2)
-├── enter.pollinations.ai/   # Auth gateway & new unified API (Cloudflare Worker)
+├── image.pollinations.ai/   # Image backend (Cloudflare Worker + EC2)
+├── text.pollinations.ai/    # Text backend (EC2)
+├── enter.pollinations.ai/   # Auth gateway & unified API (Cloudflare Worker)
 ├── pollinations.ai/         # React frontend website
 ├── pollinations-react/      # React hooks library (@pollinations/react)
 ├── model-context-protocol/  # MCP server for AI assistants
@@ -95,58 +126,92 @@ pollinations/
 └── shared/                  # Shared assets
 
 ================================================================================
-KEY FILES
+KEY FILES (with paths)
 ================================================================================
 
-- APIDOCS.md: Full API documentation with examples
-- AGENTS.md: Agent guidelines, project submission, development rules
-- DEVELOP.md: Development environment setup (Nix, SOPS)
-- enter.pollinations.ai/AGENTS.md: API cheatsheet for testing
-- enter.pollinations.ai/POLLEN_FAQ.md: Pollen billing FAQ
-- model-context-protocol/README.md: MCP server setup
+./APIDOCS.md                          # Full API documentation with examples
+./AGENTS.md                           # Agent guidelines, project submission rules
+./DEVELOP.md                          # Development environment setup (Nix, SOPS)
+./README.md                           # Project overview and quick start
+./enter.pollinations.ai/AGENTS.md     # API testing cheatsheet
+./enter.pollinations.ai/POLLEN_FAQ.md # Pollen billing FAQ
+./model-context-protocol/README.md    # MCP server setup
+./model-context-protocol/AGENTS.md    # MCP implementation guidelines
 
 ================================================================================
 POLLEN SYSTEM
 ================================================================================
 
-- $1 ≈ 1 Pollen (prepaid credits)
-- Daily grants by tier: spore (1), seed (3), flower (10), nectar (20)
-- Flux: 8,300 images/pollen, GPTImage: 125 images/pollen
-- Mistral: 5,900 chats/pollen, Claude Sonnet: 150 chats/pollen
+Pricing: $1 ≈ 1 Pollen (prepaid credits)
+Dashboard: https://enter.pollinations.ai (or https://auth.pollinations.ai)
+
+## Image Generation Costs (per Pollen)
+- Flux: 8,300 images
+- Turbo: 3,300 images
+- GPTImage: 125 images
+- Seedream: 33 images
+- Kontext: 25 images
+
+## Text Generation Costs (per Pollen, ~600 token conversations)
+- Mistral Small: 5,900 conversations
+- GPT-5 Nano: 5,300 conversations
+- Gemini 2.5 Flash: 3,800 conversations
+- DeepSeek V3.1: 445 conversations
+- Claude Sonnet 4.5: 150 conversations
 
 ================================================================================
 TIER SYSTEM
 ================================================================================
 
-spore 🍄 (1/day) - Default new accounts
-seed 🌱 (3/day) - GitHub engagement
-flower 🌸 (10/day) - Contributed code/project
-nectar 🍯 (20/day) - Strategic partners
+Level up by building with Pollinations to earn more daily pollen:
+
+| Tier   | Emoji | Daily Pollen | How to Qualify           |
+|--------|-------|--------------|--------------------------|
+| spore  | 🍄    | 1/day        | Default (new accounts)   |
+| seed   | 🌱    | 3/day        | GitHub engagement        |
+| flower | 🌸    | 10/day       | Contributed code/project |
+| nectar | 🍯    | 20/day       | Strategic partners       |
+
+Daily pollen is spent before purchased pollen. Unused daily pollen expires.
 
 ================================================================================
 QUICK DEBUG COMMANDS
 ================================================================================
 
-# Test authentication
-curl "https://enter.pollinations.ai/api/generate/image/test?model=flux" \
+# Test authentication (enter.pollinations.ai)
+curl "https://enter.pollinations.ai/api/generate/image/test?model=flux&width=256&height=256" \
   -H "Authorization: Bearer $TOKEN" \
   -w "\nHTTP Status: %{http_code}\n" -o /dev/null
 
-# List available models
+# List available image models
+curl "https://enter.pollinations.ai/api/generate/image/models" \
+  -H "Authorization: Bearer $TOKEN"
+
+# List available text models
 curl "https://enter.pollinations.ai/api/generate/v1/models" \
   -H "Authorization: Bearer $TOKEN"
 
-# Simple text generation
+# Test text generation (legacy)
 curl "https://text.pollinations.ai/Hello"
+
+# Test image generation (legacy)
+curl -o test.jpg "https://image.pollinations.ai/prompt/test"
 
 ================================================================================
 MCP SERVER
 ================================================================================
 
-# Run with npx
+Package: @pollinations/model-context-protocol
+Docs: ./model-context-protocol/README.md
+
+# Run with npx (no install required)
 npx @pollinations/model-context-protocol
 
-# Claude Desktop config
+# Or install globally
+npm install -g @pollinations/model-context-protocol
+pollinations-mcp
+
+# Claude Desktop config (add to claude_desktop_config.json)
 {
   "mcpServers": {
     "pollinations": {
@@ -156,11 +221,24 @@ npx @pollinations/model-context-protocol
   }
 }
 
-Tools: generateImageUrl, generateImage, respondAudio, sayText, generateText, listModels
+## Available MCP Tools
+- generateImageUrl: Get URL to generated image
+- generateImage: Get base64-encoded image data
+- respondAudio: Generate audio response to prompt
+- sayText: Text-to-speech (verbatim)
+- generateText: Generate text from prompt
+- listModels: List available models
+
+Requirements: Node.js 14.0.0+ (16.0.0+ recommended)
 
 ================================================================================
-DISCORD
+LINKS
 ================================================================================
 
-Guild ID: 885844321461485618
-Server: https://discord.gg/pollinations
+Website: https://pollinations.ai
+Auth Dashboard: https://enter.pollinations.ai (or https://auth.pollinations.ai)
+GitHub: https://github.com/pollinations/pollinations
+Discord: https://discord.gg/pollinations (Guild ID: 885844321461485618)
+React Hooks: https://react-hooks.pollinations.ai
+NPM (@pollinations/react): https://www.npmjs.com/package/@pollinations/react
+NPM (MCP): https://www.npmjs.com/package/@pollinations/model-context-protocol
