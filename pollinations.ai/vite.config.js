@@ -5,6 +5,8 @@ import svgr from 'vite-plugin-svgr'
 
 export default defineConfig({
   plugins: [react(), tsconfigPaths(), svgr()],
+  // Set base path for GitHub Pages deployment (repo name as subdirectory)
+  base: '/pollinations/',
   server: {
     open: true
   },
