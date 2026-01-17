@@ -52,7 +52,7 @@
   }
   
   body.sidebar-expanded-mobile .chat-container {
-    filter: blur(8px);
+    filter: none;
     pointer-events: none;
   }
   

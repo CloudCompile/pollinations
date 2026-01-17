@@ -86,9 +86,7 @@ const ChatInput = ({
     }, []);
 
     useEffect(() => {
-        if (isListening) {
-            setInputValue("Listening...");
-        } else if (inputValue === "Listening...") {
+        if (!isListening && inputValue === "Listening...") {
             setInputValue("");
         }
     }, [isListening, inputValue]);
@@ -348,6 +346,9 @@ const ChatInput = ({
         inputRef.current?.focus();
     };
 
+    const isSendDisabled =
+        isListening || (!inputValue.trim() && !selectedAttachment);
+
     return (
         <footer
             className="chat-input-container"
@@ -502,55 +503,65 @@ const ChatInput = ({
                                 )}
                             </div>
                         )}
-                        <textarea
-                            ref={inputRef}
-                            id="messageInput"
-                            value={
-                                isImagineMode
-                                    ? inputValue
-                                          .replace("/imagine ", "")
-                                          .replace("/imagine", "")
-                                    : isVideoMode
-                                      ? inputValue
-                                            .replace("/video ", "")
-                                            .replace("/video", "")
-                                      : isCanvasMode
+                        {isListening ? (
+                            <div
+                                className="chat-input-listening"
+                                role="status"
+                                aria-live="polite"
+                            >
+                                Listening…
+                            </div>
+                        ) : (
+                            <textarea
+                                ref={inputRef}
+                                id="messageInput"
+                                value={
+                                    isImagineMode
                                         ? inputValue
-                                              .replace("/code ", "")
-                                              .replace("/code", "")
-                                        : inputValue
-                            }
-                            onChange={(event) => {
-                                const value = event.target.value;
-                                if (isImagineMode) {
-                                    setInputValue(`/imagine ${value}`);
-                                } else if (isVideoMode) {
-                                    setInputValue(`/video ${value}`);
-                                } else if (isCanvasMode) {
-                                    setInputValue(`/code ${value}`);
-                                } else {
-                                    setInputValue(value);
+                                              .replace("/imagine ", "")
+                                              .replace("/imagine", "")
+                                        : isVideoMode
+                                          ? inputValue
+                                                .replace("/video ", "")
+                                                .replace("/video", "")
+                                          : isCanvasMode
+                                            ? inputValue
+                                                  .replace("/code ", "")
+                                                  .replace("/code", "")
+                                            : inputValue
                                 }
-                                setIsUserTyping(value.length > 0);
-                                if (onModeChange) {
+                                onChange={(event) => {
+                                    const value = event.target.value;
                                     if (isImagineMode) {
-                                        onModeChange("imagine");
+                                        setInputValue(`/imagine ${value}`);
                                     } else if (isVideoMode) {
-                                        onModeChange("video");
+                                        setInputValue(`/video ${value}`);
                                     } else if (isCanvasMode) {
-                                        onModeChange("code");
+                                        setInputValue(`/code ${value}`);
                                     } else {
-                                        onModeChange("chat");
+                                        setInputValue(value);
                                     }
-                                }
-                            }}
-                            onKeyDown={handleKeyDown}
-                            onPaste={handlePaste}
-                            placeholder="Type your message here..."
-                            rows="1"
-                            className="chat-input-modern"
-                            disabled={isGenerating || isListening}
-                        />
+                                    setIsUserTyping(value.length > 0);
+                                    if (onModeChange) {
+                                        if (isImagineMode) {
+                                            onModeChange("imagine");
+                                        } else if (isVideoMode) {
+                                            onModeChange("video");
+                                        } else if (isCanvasMode) {
+                                            onModeChange("code");
+                                        } else {
+                                            onModeChange("chat");
+                                        }
+                                    }
+                                }}
+                                onKeyDown={handleKeyDown}
+                                onPaste={handlePaste}
+                                placeholder="Type your message here..."
+                                rows="1"
+                                className="chat-input-modern"
+                                disabled={isGenerating}
+                            />
+                        )}
                     </div>
 
                     <div className="chatbar-bottom">
@@ -873,10 +884,7 @@ const ChatInput = ({
                                 <button
                                     className="send-btn-modern"
                                     onClick={handleSend}
-                                    disabled={
-                                        !inputValue.trim() &&
-                                        !selectedAttachment
-                                    }
+                                    disabled={isSendDisabled}
                                     title="Send message"
                                     type="button"
                                 >
@@ -889,8 +897,8 @@ const ChatInput = ({
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                     >
-                                        <path d="M22 2L11 13" />
-                                        <path d="M22 2L15 22L11 13L2 9L22 2Z" />
+                                        <path d="M5 12h13" />
+                                        <path d="M13 6l5 6-5 6" />
                                     </svg>
                                 </button>
                             )}

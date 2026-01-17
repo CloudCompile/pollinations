@@ -108,6 +108,10 @@ function App() {
         }
     }, []);
 
+    useEffect(() => {
+        document.title = "chat.pollinations.ai";
+    }, []);
+
     // Update API token when user logs in/out
     useEffect(() => {
         setApiToken(apiKey);

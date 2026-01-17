@@ -352,7 +352,7 @@ const MessageArea = ({ messages, isGenerating, isUserTyping, onRegenerate }) => 
         {isGenerating && (messages.length === 0 || messages[messages.length - 1]?.role !== 'assistant' || !messages[messages.length - 1]?.isStreaming) && (
           <div className="message-row assistant">
             <div className="message-avatar assistant">
-              <img src="pollinations-logo.svg" alt="AI" className="ai-logo" />
+              <img src="/pollinations-logo.svg" alt="AI" className="ai-logo" />
             </div>
             <div className="message-bubble assistant">
               <ThinkingProcess isThinking={true} content="" />

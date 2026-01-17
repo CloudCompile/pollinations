@@ -62,6 +62,16 @@ const Sidebar = memo(
             }
         }, [onOpenSettings]);
 
+        const handleChatSelect = useCallback(
+            (chatId) => {
+                onChatSelect(chatId);
+                if (typeof window !== "undefined" && window.innerWidth <= 768) {
+                    setIsExpanded(false);
+                }
+            },
+            [onChatSelect],
+        );
+
         return (
             <>
                 <aside
@@ -270,7 +280,7 @@ const Sidebar = memo(
                                             type="button"
                                             className="chat-item-select"
                                             onClick={() =>
-                                                onChatSelect(chat.id)
+                                                handleChatSelect(chat.id)
                                             }
                                         >
                                             <span className="chat-item-title truncate">

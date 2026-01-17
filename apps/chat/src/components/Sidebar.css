@@ -475,8 +475,8 @@ body.light .sidebar-footer {
   }
   
   .sidebar.expanded {
-    width: 85vw; /* Take most of screen on mobile */
-    max-width: 320px;
+    width: 100vw;
+    max-width: none;
   }
   
   /* Show toggle button when sidebar is collapsed on mobile */

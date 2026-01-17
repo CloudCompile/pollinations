@@ -501,6 +501,15 @@ body.dark .video-mode-tag {
     opacity: 0.6;
 }
 
+.chat-input-listening {
+    min-height: 20px;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+}
+
 /* Send Button */
 .send-btn-modern {
     width: 36px;
@@ -596,7 +605,7 @@ body.dark .video-mode-tag {
 .model-dropdown-compact {
     position: absolute;
     bottom: calc(100% + 0.5rem);
-    left: 0;
+    left: -0.5rem;
     background: var(--bg-secondary);
     border: 1px solid var(--border-light);
     border-radius: 12px;
