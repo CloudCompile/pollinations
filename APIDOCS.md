@@ -990,7 +990,7 @@ API keys can be created from your dashboard at enter.pollinations.ai. Both key t
 
 - **`model`**
 
-  `string`, possible values: `"openai", "openai-fast", "openai-large", "qwen-coder", "mistral", "openai-audio", "gemini", "gemini-fast", "deepseek", "grok", "gemini-search", "chickytutor", "midijourney", "claude-fast", "claude", "claude-large", "perplexity-fast", "perplexity-reasoning", "kimi", "gemini-large", "nova-fast", "glm", "minimax"`, default: `"openai"` — AI model for text generation. See /v1/models for full list.
+  `string`, possible values: `"openai", "openai-fast", "openai-large", "qwen-coder", "mistral", "openai-audio", "gemini", "gemini-fast", "deepseek", "grok", "gemini-search", "chickytutor", "midijourney", "claude-fast", "claude", "claude-large", "perplexity-fast", "perplexity-reasoning", "kimi", "gemini-large", "nova-fast", "glm", "minimax", "nomnom"`, default: `"openai"` — AI model for text generation. See /v1/models for full list.
 
 - **`parallel_tool_calls`**
 
