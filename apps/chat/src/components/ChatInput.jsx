@@ -346,9 +346,6 @@ const ChatInput = ({
         inputRef.current?.focus();
     };
 
-    const isSendDisabled =
-        isListening || (!inputValue.trim() && !selectedAttachment);
-
     return (
         <footer
             className="chat-input-container"
@@ -884,7 +881,11 @@ const ChatInput = ({
                                 <button
                                     className="send-btn-modern"
                                     onClick={handleSend}
-                                    disabled={isSendDisabled}
+                                    disabled={
+                                        isListening ||
+                                        (!inputValue.trim() &&
+                                            !selectedAttachment)
+                                    }
                                     title="Send message"
                                     type="button"
                                 >
