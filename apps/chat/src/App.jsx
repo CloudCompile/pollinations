@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ChatInput from "./components/ChatInput";
+import CodeCanvas from "./components/CodeCanvas";
 import ConfirmModal from "./components/ConfirmModal";
 import GenerationOptionsModal from "./components/GenerationOptionsModal";
 import KeyboardShortcutsModal from "./components/KeyboardShortcutsModal";
@@ -23,6 +24,12 @@ import {
     saveSelectedModel,
     saveTheme,
 } from "./utils/storage";
+
+const CODE_GENERATION_SYSTEM_PROMPT =
+    "You are an expert web developer. When given a request, respond with a single, complete, self-contained HTML file that includes all CSS and JavaScript inline. Do not include any explanation or markdown fences—output ONLY the raw HTML document starting with <!DOCTYPE html>.";
+
+const stripCodeFences = (text) =>
+    text.replace(/^```(?:html)?\n?/i, "").replace(/\n?```$/, "");
 
 function App() {
     const {
@@ -99,6 +106,12 @@ function App() {
         aspectRatio: "16:9",
         audio: false,
     });
+
+    // Code canvas state
+    const [isCodeCanvasOpen, setIsCodeCanvasOpen] = useState(false);
+    const [canvasCode, setCanvasCode] = useState("");
+    const [isCanvasGenerating, setIsCanvasGenerating] = useState(false);
+    const canvasAbortRef = useRef(null);
 
     // Show tutorial on first visit
     useEffect(() => {
@@ -605,6 +618,60 @@ function App() {
         ],
     );
 
+    const handleGenerateCode = useCallback(
+        async (prompt) => {
+            if (!prompt.trim()) return;
+
+            // Abort any previous canvas generation
+            if (canvasAbortRef.current) {
+                canvasAbortRef.current.abort();
+            }
+            const controller = new AbortController();
+            canvasAbortRef.current = controller;
+
+            setIsCodeCanvasOpen(true);
+            setCanvasCode("");
+            setIsCanvasGenerating(true);
+
+            const messages = [
+                { role: "system", content: CODE_GENERATION_SYSTEM_PROMPT },
+                { role: "user", content: prompt },
+            ];
+
+            try {
+                await sendMessage(
+                    messages,
+                    (_chunk, fullContent) => {
+                        if (controller.signal.aborted) return;
+                        setCanvasCode(stripCodeFences(fullContent));
+                    },
+                    (fullContent) => {
+                        if (controller.signal.aborted) return;
+                        setCanvasCode(stripCodeFences(fullContent));
+                        setIsCanvasGenerating(false);
+                    },
+                    (error) => {
+                        if (controller.signal.aborted) return;
+                        console.error("Code generation error:", error);
+                        setIsCanvasGenerating(false);
+                        if (window?.showToast)
+                            window.showToast("Code generation failed", "error");
+                    },
+                    selectedModel,
+                    { maxTokens: 4000, temperature: 0.3, topP: 1 },
+                );
+            } catch (error) {
+                if (!controller.signal.aborted) {
+                    console.error("Code generation error:", error);
+                    setIsCanvasGenerating(false);
+                    if (window?.showToast)
+                        window.showToast("Code generation failed", "error");
+                }
+            }
+        },
+        [selectedModel],
+    );
+
     const handleRegenerateMessage = async () => {
         const activeChat = getActiveChat();
         if (!activeChat || isGenerating) return;
@@ -728,6 +795,7 @@ function App() {
                     onStop={handleStopGeneration}
                     onGenerateImage={handleGenerateImage}
                     onGenerateVideo={handleGenerateVideo}
+                    onGenerateCode={handleGenerateCode}
                     setIsUserTyping={() => {}}
                     onModeChange={setMode}
                     selectedModel={selectedModel}
@@ -781,6 +849,19 @@ function App() {
                 mode={generationOptionsMode}
                 onGenerate={handleGenerationOptionsApply}
             />
+
+            {isCodeCanvasOpen && (
+                <CodeCanvas
+                    code={canvasCode}
+                    isGenerating={isCanvasGenerating}
+                    onClose={() => {
+                        setIsCodeCanvasOpen(false);
+                        if (canvasAbortRef.current) {
+                            canvasAbortRef.current.abort();
+                        }
+                    }}
+                />
+            )}
         </div>
     );
 }
