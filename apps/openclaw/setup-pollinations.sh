@@ -40,7 +40,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
       --auth-choice custom-api-key \
       --custom-base-url "https://gen.pollinations.ai/v1" \
       --custom-provider-id pollinations \
-      --custom-model-id kimi \
+      --custom-model-id openclaw \
       --custom-api-key "$API_KEY" \
       --secret-input-mode plaintext \
       --skip-channels \
@@ -62,6 +62,24 @@ POLLINATIONS_PROVIDER=$(cat <<'EOF'
   "apiKey": "",
   "api": "openai-completions",
   "models": [
+    {
+      "id": "openclaw",
+      "name": "OpenClaw Preset — qwen-coder backbone + OpenClaw system prompt",
+      "reasoning": false,
+      "input": ["text"],
+      "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0},
+      "contextWindow": 128000,
+      "maxTokens": 8192
+    },
+    {
+      "id": "qwen-coder",
+      "name": "Qwen Coder — Base coding model behind OpenClaw preset",
+      "reasoning": false,
+      "input": ["text"],
+      "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0},
+      "contextWindow": 128000,
+      "maxTokens": 8192
+    },
     {
       "id": "kimi",
       "name": "Kimi K2.5 — 256K context, vision, tools, reasoning",
@@ -137,7 +155,8 @@ jq --argjson provider "$POLLINATIONS_PROVIDER" --arg key "$API_KEY" \
 
 # --- Step 3: Set default model + fallbacks via CLI ---
 
-openclaw models set pollinations/kimi >/dev/null
+openclaw models set pollinations/openclaw >/dev/null
+openclaw models fallbacks add pollinations/qwen-coder >/dev/null
 openclaw models fallbacks add pollinations/deepseek >/dev/null
 openclaw models fallbacks add pollinations/glm >/dev/null
 
@@ -152,11 +171,11 @@ echo ""
 echo "Done! Pollinations.ai is ready."
 echo ""
 echo "  API Key:   $MASKED"
-echo "  Default:   pollinations/kimi (256K context, vision, reasoning)"
-echo "  Fallbacks: deepseek, glm"
+echo "  Default:   pollinations/openclaw (preset alias over qwen-coder)"
+echo "  Fallbacks: qwen-coder, deepseek, glm"
 echo ""
-echo "  Switch models:  /model pollinations/deepseek"
+echo "  Switch models:  /model pollinations/qwen-coder"
 echo "  Your account:   https://enter.pollinations.ai"
 echo ""
-echo "  Free: kimi, deepseek, glm, gemini-search, claude-fast"
+echo "  Free: openclaw, qwen-coder, kimi, deepseek, glm, gemini-search, claude-fast"
 echo "  Paid: claude-large, gemini-large"

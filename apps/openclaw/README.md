@@ -2,7 +2,7 @@
 
 Use **25+ AI models** as your OpenClaw brain through a single API.
 
-**Kimi K2.5** as default (256K context, vision, tools, reasoning), with DeepSeek, GLM-4.7, and Claude Haiku as free alternatives. Premium models (Claude Opus, Gemini 3 Pro) available on paid tier.
+**OpenClaw preset** as default (a preset alias over the existing `qwen-coder` backbone + custom system prompt), with DeepSeek, GLM-4.7, and Claude Haiku as free alternatives. Premium models (Claude Opus, Gemini 3 Pro) available on paid tier.
 
 ## Setup
 
@@ -16,8 +16,8 @@ curl -fsSL https://raw.githubusercontent.com/pollinations/pollinations/main/apps
 
 This works for both fresh installs and existing OpenClaw setups. It:
 - Runs `openclaw onboard` for fresh installs (creates config + workspace)
-- Adds the Pollinations provider with 7 models to `~/.openclaw/openclaw.json`
-- Sets Kimi K2.5 as default with DeepSeek + GLM fallbacks
+- Adds the Pollinations provider with 9 models to `~/.openclaw/openclaw.json`
+- Sets `pollinations/openclaw` as default with fallback order: `pollinations/qwen-coder` → `pollinations/deepseek` → `pollinations/glm`
 
 **Step 3 (fresh install only):** Start the gateway:
 
@@ -31,7 +31,9 @@ Switch models anytime in chat with `/model pollinations/<name>`:
 
 | Model | ID | Best for |
 |---|---|---|
-| **Kimi K2.5** (default) | `pollinations/kimi` | Agentic tasks, vision, reasoning (256K context) |
+| **OpenClaw preset** (default) | `pollinations/openclaw` | OpenClaw-tuned coding behavior (preset alias over `qwen-coder`) |
+| **Qwen Coder** | `pollinations/qwen-coder` | Base coding model behind `pollinations/openclaw` |
+| **Kimi K2.5** | `pollinations/kimi` | Agentic tasks, vision, reasoning (256K context) |
 | **DeepSeek V3.2** | `pollinations/deepseek` | Strong reasoning & tool calling |
 | **GLM-4.7** | `pollinations/glm` | Coding, reasoning, agentic workflows |
 | **Gemini + Search** | `pollinations/gemini-search` | Web search grounded answers |
@@ -53,11 +55,68 @@ If you prefer not to run the script, edit `~/.openclaw/openclaw.json` directly. 
         "api": "openai-completions",
         "models": [
           {
+            "id": "openclaw",
+            "name": "OpenClaw Preset (alias over qwen-coder)",
+            "input": ["text"],
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "qwen-coder",
+            "name": "Qwen Coder (base backbone)",
+            "input": ["text"],
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
             "id": "kimi",
             "name": "Kimi K2.5",
             "reasoning": true,
             "input": ["text", "image"],
             "contextWindow": 256000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "deepseek",
+            "name": "DeepSeek V3.2",
+            "input": ["text"],
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "glm",
+            "name": "GLM-4.7",
+            "input": ["text"],
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gemini-search",
+            "name": "Gemini + Search",
+            "input": ["text", "image"],
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-fast",
+            "name": "Claude Haiku 4.5",
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-large",
+            "name": "Claude Opus 4.6 (Paid)",
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gemini-large",
+            "name": "Gemini 3 Pro (Paid)",
+            "reasoning": true,
+            "input": ["text", "image"],
+            "contextWindow": 1000000,
             "maxTokens": 8192
           }
         ]
@@ -70,8 +129,10 @@ If you prefer not to run the script, edit `~/.openclaw/openclaw.json` directly. 
 Then set the default model:
 
 ```bash
-openclaw models set pollinations/kimi
+openclaw models set pollinations/openclaw
+openclaw models fallbacks add pollinations/qwen-coder
 openclaw models fallbacks add pollinations/deepseek
+openclaw models fallbacks add pollinations/glm
 openclaw gateway restart
 ```
 
