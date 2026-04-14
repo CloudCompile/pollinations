@@ -17,7 +17,7 @@ curl -fsSL https://raw.githubusercontent.com/pollinations/pollinations/main/apps
 This works for both fresh installs and existing OpenClaw setups. It:
 - Runs `openclaw onboard` for fresh installs (creates config + workspace)
 - Adds the Pollinations provider with 9 models to `~/.openclaw/openclaw.json`
-- Sets `pollinations/openclaw` as default with fallback order: `pollinations/qwen-coder` → `pollinations/deepseek` → `pollinations/glm`
+- Sets `pollinations/openclaw` as default with fallback order: `pollinations/qwen-coder` -> `pollinations/deepseek` -> `pollinations/glm`
 
 **Step 3 (fresh install only):** Start the gateway:
 
