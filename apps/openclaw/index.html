@@ -631,7 +631,7 @@
   | bash -s -- <span id="key-placeholder">YOUR_API_KEY</span><button class="copy-btn" onclick="copyCode('setup-cmd')">Copy</button></div>
                     <ul style="margin:8px 0 12px 20px; font-size:14px; line-height:1.5; color:var(--muted)">
                         <li>🔑 Saves API key to <code style="color:var(--accent); font-size:13px">~/.openclaw/openclaw.json</code></li>
-                        <li>🤖 Adds 9 chat models: OpenClaw preset, Qwen Coder, Kimi K2.5, DeepSeek, GLM, Gemini + Search, Claude Haiku + 2 paid (plus <code style="color:var(--accent); font-size:13px">perplexity-fast</code> for web_search)</li>
+                        <li>🤖 Adds 9 chat models (7 free + 2 paid): OpenClaw preset, Qwen Coder, Kimi K2.5, DeepSeek, GLM, Gemini + Search, Claude Haiku, Claude Opus 4.6, Gemini 3 Pro (plus <code style="color:var(--accent); font-size:13px">perplexity-fast</code> for web_search)</li>
                         <li>🔍 Configures <code style="color:var(--accent); font-size:13px">web_search</code> tool with Perplexity <em>via pollinations.ai</em> (preserves existing if already set)</li>
                     </ul>
 
@@ -724,7 +724,7 @@ The script will restart the gateway automatically. After that, switch models any
                 <div class="model-row recommended">
                     <div class="model-label">OpenClaw preset <span class="model-tag">default</span></div>
                     <div class="model-id">pollinations/openclaw</div>
-                    <div class="model-note"><strong>OpenClaw-tuned coding preset</strong> built as an alias over <code>pollinations/qwen-coder</code> plus a custom system prompt.</div>
+                    <div class="model-note"><strong>OpenClaw-tuned coding preset</strong> using <code>pollinations/qwen-coder</code> as the base model plus a custom system prompt.</div>
                 </div>
                 <div class="model-row">
                     <div class="model-label">Qwen Coder</div>

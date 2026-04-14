@@ -64,7 +64,7 @@ POLLINATIONS_PROVIDER=$(cat <<'EOF'
   "models": [
     {
       "id": "openclaw",
-      "name": "OpenClaw Preset — qwen-coder backbone + OpenClaw system prompt",
+      "name": "OpenClaw Preset: qwen-coder backbone + OpenClaw system prompt",
       "reasoning": false,
       "input": ["text"],
       "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0},
