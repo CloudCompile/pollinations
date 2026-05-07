@@ -9,6 +9,7 @@ const ChatInput = ({
     setIsUserTyping = () => {},
     onGenerateImage,
     onGenerateVideo,
+    onGenerateCode,
     onModeChange,
     selectedModel,
     selectedImageModel,
@@ -151,6 +152,21 @@ const ChatInput = ({
                         onModeChange("chat");
                     }
                     // Refocus input after sending
+                    setTimeout(() => inputRef.current?.focus(), 0);
+                    return;
+                }
+            }
+
+            if (inputValue.trim().startsWith("/code ")) {
+                const prompt = inputValue.trim().substring(6);
+                if (prompt && onGenerateCode) {
+                    onGenerateCode(prompt);
+                    setInputValue("");
+                    setSelectedAttachment(null);
+                    setIsUserTyping(false);
+                    if (onModeChange) {
+                        onModeChange("chat");
+                    }
                     setTimeout(() => inputRef.current?.focus(), 0);
                     return;
                 }
